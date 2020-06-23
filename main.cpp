@@ -5,16 +5,25 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
+    // Declarando dos objetos de la clase Contador
     Contador contadorA, contadorB;
+
+    // ************* IMPORTANTE ************
+    // Conectando el signal con el slot
+    // contadorA.valorCambiado(int) ----> contadorB.setValor(int)
     QObject::connect(&contadorA, &Contador::valorCambiado,
                      &contadorB, &Contador::setValor);
+    // *************************************
 
-    int valor = 15;
-    qDebug() << "Contador A:" << valor;
+    qDebug() << "Contador A:" << contadorA.getValor();
+    qDebug() << "Contador B:" << contadorB.getValor();
+
+    // Estableciendo el valor en el objeto A
     contadorA.setValor(15);
-    qDebug() << "Contador B:" << contadorB.valor();
+
+    qDebug() << "Contador A:" << contadorA.getValor();
+    // El valor en el objeto B ha cambiado (conectado)
+    qDebug() << "Contador B:" << contadorB.getValor();
 
     return 0;
 }
